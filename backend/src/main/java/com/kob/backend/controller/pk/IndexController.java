@@ -8,10 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Time: 2024/1/17 21:11
  */
 @Controller
-@RequestMapping("/pk/")
+@RequestMapping("/pk")
 public class IndexController {
-    @RequestMapping("index/")
+
+    @RequestMapping("/index")
     public String index(){
-        return "/pk/index.html";
+        return "pk/index.html";
+        // 文件后缀名可加可不加
+        // 访问路径默认src/main/resources/templates/
     }
 }
