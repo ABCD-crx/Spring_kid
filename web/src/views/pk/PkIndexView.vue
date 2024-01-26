@@ -1,16 +1,15 @@
 <template>
-    <ContentFiled>
-        pk
-    </ContentFiled>
+    <PlayGround />
 </template>
 
 <script>
-import ContentFiled from '@/components/ContentFiled.vue'
+
+import PlayGround from '@/components/PlayGround.vue'
 
 export default {
     name:'pk_index',
     components:{
-        ContentFiled,
+        PlayGround,
     }
 }
 </script>
