@@ -22,6 +22,28 @@ export class GameMap extends GameObejct {
         ];
     }
 
+    // 检测目标位置合法 身体和墙——碰撞检测
+    check_valid(cell) {
+        for (const wall of this.walls) {
+            if (wall.r === cell.r && wall.c === cell.c) 
+                return false;
+        }
+
+        for (const snake of this.snakes) {
+            let k = snake.cells.length;
+            if (!snake.check_tail_increasing()) { //蛇尾会前进的时候蛇尾不用判断
+                k --;
+            }
+            for (let i = 0; i < k; i++) {
+                if (snake.cells[i].r === cell.r && snake.cells[i].c === cell.c)
+                return false
+            }
+        }
+
+
+        return true;
+    }
+
     // 判断两条下一回合是否准备好
     check_ready() {
         for (const snake of this.snakes) {
