@@ -15,7 +15,7 @@ export class GameObejct {
 
     }
 
-    updata() {  // 每一帧执行一次，除了第一帧
+    update() {  // 每一帧执行一次，除了第一帧
 
     }
 
@@ -48,7 +48,7 @@ const step = timestamp => {
             obj.start();
         } else {
             obj.timedelta = timestamp - last_timestamp;
-            obj.updata();
+            obj.update();
         }
     }
 

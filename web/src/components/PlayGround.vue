@@ -19,7 +19,7 @@ export default {
 div.playground{
     width: 60vw;
     height: 70vh;
-    background: white;
+    /* background: white; */
     margin: 60px auto;
 }
 </style>
