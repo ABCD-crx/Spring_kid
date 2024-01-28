@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Time: 2024/1/17 21:11
  */
 @Controller
-@RequestMapping("/pk")
+@RequestMapping("/")
 public class IndexController {
-
-    @RequestMapping("/index")
     public String index(){
         return "pk/index.html";
         // 文件后缀名可加可不加
