@@ -16,7 +16,7 @@ import java.util.Collection;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDetailsimp implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
 
     private User user;
 
