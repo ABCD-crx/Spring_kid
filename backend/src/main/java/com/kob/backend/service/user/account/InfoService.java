@@ -7,5 +7,5 @@ import java.util.Map;
  * Time: 2024/1/29 16:14
  */
 public interface InfoService {
-    Map<String, String> getinfo();
+    Map<String, String> getInfo();
 }

@@ -86,28 +86,12 @@ const router = createRouter({
 
 // router 执行之前调用此函数  to跳转到哪个页面，from是从哪跳 next页面要不要执行下一步操作
 router.beforeEach((to, from, next) => {
-  console.log(store.state.user.is_login);
-  if (!store.state.user.is_login) {
-    const jwt_token = localStorage.getItem("jwt_token");
-      if (jwt_token) {
-        store.commit("updateToken", jwt_token);
-        store.dispatch("getinfo", {
-            success() {
-              console.log(store.state.user.is_login);
-            },
-            error(){
-                localStorage.removeItem('jwt_token');
-                next({name: "user_account_login"})
-            }
-        })
-     }
-  }
-  console.log(store.state.user.is_login);
-  if (to.meta.requestAuth && !store.state.user.is_login) {
+  if (to.meta.requestAuth && !store.state.user.is_login ) {
     next({name: "user_account_login"});
   } else {
     next();
   }
+
 })
 
 export default router
