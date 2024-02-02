@@ -12,8 +12,8 @@ export default {
         state.socket = socket;
     },
     updateOpponent(state, opponent) {
-        state.opponent_username = opponent.opponent_username;
-        state.opponent_photo = opponent.opponent_photo;
+        state.opponent_username = opponent.username;
+        state.opponent_photo = opponent.photo;
     },
     updateStatus(state, status) {
         state.status = status;
