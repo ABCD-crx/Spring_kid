@@ -13,7 +13,7 @@ export default {
     },
     mutations: {
         updateUser(state, user) {
-            state.user = user.id;
+            state.id = user.id;
             state.username = user.username;
             state.photo = user.photo;
             state.is_login = user.is_login;
@@ -66,7 +66,6 @@ export default {
                 },
                 success(resp) {
                     if(resp.error_message === "success") {
-                        console.log(resp);
                         context.commit("updateUser", {
                             ...resp,
                             is_login: true,
