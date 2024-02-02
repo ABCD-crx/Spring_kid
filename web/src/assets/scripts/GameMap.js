@@ -3,11 +3,12 @@ import { Sanke } from "./Snake";
 import { Wall } from "./Wall";
 
 export class GameMap extends GameObejct {
-    constructor(ctx, parent){ //ctx 画布 parent画布的复元素用来动态修改长宽
+    constructor(ctx, parent, store){ //ctx 画布 parent画布的复元素用来动态修改长宽
         super();
 
         this.ctx = ctx;
         this.parent = parent;
+        this.store = store;
         this.L = 0;     //每一个格子的绝对距离
 
         this.rows = 13;
@@ -53,61 +54,65 @@ export class GameMap extends GameObejct {
         return true;
     }
 
-    // Flood Fill 算法判断是否联通
-    check_connectivity(g, sx, sy, tx, ty) {
-        if(sx == tx && sy == ty) return true;
-        g[sx][sy] = true;
 
-        let dx = [-1, 0, 1, 0], dy = [0, 1, 0, -1];
-        for (let i = 0; i < 4; i++) {
-            let x = sx + dx[i], y = sy + dy[i];
-            if(!g[x][y] && this.check_connectivity(g, x, y, tx, ty)) {
-                return true;
-            }
-        }
+    // 地图创建已在后端完成
 
-        return false;
-    }
+    // // Flood Fill 算法判断是否联通
+    // check_connectivity(g, sx, sy, tx, ty) {
+    //     if(sx == tx && sy == ty) return true;
+    //     g[sx][sy] = true;
+
+    //     let dx = [-1, 0, 1, 0], dy = [0, 1, 0, -1];
+    //     for (let i = 0; i < 4; i++) {
+    //         let x = sx + dx[i], y = sy + dy[i];
+    //         if(!g[x][y] && this.check_connectivity(g, x, y, tx, ty)) {
+    //             return true;
+    //         }
+    //     }
+
+    //     return false;
+    // }
 
 
-    // 创建墙障碍物
+    // // 创建墙障碍物
     create_walls(){
-        // 每个格子是否为墙 状态数组
-        const g = [];
-        for ( let r = 0; r < this.rows; r++ ) {
-            g[r] = [];
-            for( let c = 0; c < this.cols; c++ ){
-                g[r][c] = false;
-            }
-        }
+    //     // 每个格子是否为墙 状态数组
+    //     const g = [];
+    //     for ( let r = 0; r < this.rows; r++ ) {
+    //         g[r] = [];
+    //         for( let c = 0; c < this.cols; c++ ){
+    //             g[r][c] = false;
+    //         }
+    //     }
 
-        // 给四周加上障碍物
-        for ( let r = 0; r < this.rows; r++){
-            g[r][0] = g[r][this.cols - 1] = true;
-        }
-        for( let c = 0; c < this.cols; c++) {
-            g[0][c] = g[this.rows - 1][c] = true;
-        }
+    //     // 给四周加上障碍物
+    //     for ( let r = 0; r < this.rows; r++){
+    //         g[r][0] = g[r][this.cols - 1] = true;
+    //     }
+    //     for( let c = 0; c < this.cols; c++) {
+    //         g[0][c] = g[this.rows - 1][c] = true;
+    //     }
 
-        // 创建随机障碍物   对称放置保证公平
-        for ( let i = 0; i < this.inner_walls_count / 2; i++){
-            for ( let j = 0; j < 1000; j++ ) {
-                let r = parseInt(Math.random() * this.rows);
-                let c = parseInt(Math.random() * this.cols);
-                // 非正方形 采用中心对称
-                if(g[r][c] || g[this.rows - 1 - r][this.cols - 1 - c] ) continue;
+    //     // 创建随机障碍物   对称放置保证公平
+    //     for ( let i = 0; i < this.inner_walls_count / 2; i++){
+    //         for ( let j = 0; j < 1000; j++ ) {
+    //             let r = parseInt(Math.random() * this.rows);
+    //             let c = parseInt(Math.random() * this.cols);
+    //             // 非正方形 采用中心对称
+    //             if(g[r][c] || g[this.rows - 1 - r][this.cols - 1 - c] ) continue;
 
-                // 左上和右下不可被覆盖
-                if(r == this.rows - 2 && c == 1 || r == 1 && c == this.cols - 2 ) continue;
+    //             // 左上和右下不可被覆盖
+    //             if(r == this.rows - 2 && c == 1 || r == 1 && c == this.cols - 2 ) continue;
 
-                g[r][c] = g[this.rows - 1 - r][this.cols - 1 - c] = true;
-                break;
-            }
-        }
+    //             g[r][c] = g[this.rows - 1 - r][this.cols - 1 - c] = true;
+    //             break;
+    //         }
+    //     }
 
-
-        const copy_g = JSON.parse(JSON.stringify(g));
-        if( !this.check_connectivity(copy_g, this.rows - 2, 1, 1, this.cols - 2) ) return false;
+    //     const copy_g = JSON.parse(JSON.stringify(g));
+    //     if( !this.check_connectivity(copy_g, this.rows - 2, 1, 1, this.cols - 2) ) return false;
+        
+        const g = this.store.state.pk.gamemap;
 
         for( let r = 0; r < this.rows; r++) {
             for (let c = 0; c < this.cols; c++) {
@@ -118,7 +123,7 @@ export class GameMap extends GameObejct {
         }
 
 
-        return true;
+    //     return true;
     }
 
     // 获取用户输入
@@ -139,11 +144,12 @@ export class GameMap extends GameObejct {
     }
 
     start() {
-        for(let i = 0; i < 1000; i++) {
-            if(this.create_walls()){
-                break;
-            }
-        }
+        // for(let i = 0; i < 1000; i++) {
+        //     if(this.create_walls()){
+        //         break;
+        //     }
+        // }
+        this.create_walls();
         this.add_listening_events();
     }
     
