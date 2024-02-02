@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="add-bot-code" class="form-label">BOT代码</label>
-                                    <VAceEditor v-model:value="botadd.content" @init="editorInit" lang="c_cpp"
+                                    <VAceEditor v-model:value="botadd.content"  lang="c_cpp"
                                                 theme="textmate" style="height: 300px" 
                                                 :options="{
                                                     enableBasicAutocompletion: true, //启用基本自动完成
@@ -96,7 +96,7 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="update-bot-code" class="form-label">BOT代码</label>
-                                                    <VAceEditor v-model:value="bot.content" @init="editorInit"
+                                                    <VAceEditor v-model:value="bot.content" 
                                                                 lang="c_cpp" theme="textmate" style="height: 300px"
                                                                 :options="{
                                                                     enableBasicAutocompletion: true, //启用基本自动完成
@@ -106,6 +106,7 @@
                                                                     tabSize: 4, // 标签大小
                                                                     showPrintMargin: false, //去除编辑器里的竖线
                                                                     highlightActiveLine: true,
+                                                                    theme: 'ace/theme/terminal',
                                                                 }" />  
                                                 </div>
                                             </div>
@@ -145,6 +146,8 @@ import 'ace-builds/src-noconflict/mode-java';
 import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/theme-chrome';
 import 'ace-builds/src-noconflict/ext-language_tools';
+//编辑器主题
+import 'ace-builds/src-noconflict/theme-terminal';
 
 export default {
     name:'user_bot_index',
