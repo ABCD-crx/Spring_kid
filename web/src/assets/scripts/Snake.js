@@ -79,10 +79,7 @@ export class Sanke extends GameObejct {
             this.cells[i] = JSON.parse(JSON.stringify(this.cells[i - 1]));
         }
 
-        // 如果下一步操作不合法则直接去世
-        if (!this.gamemap.check_valid(this.next_cell)) {
-            this.status = "die";
-        }
+        // 如果下一步操作不合法则直接去世   移致后端操作
     }
     
     update_move() {
