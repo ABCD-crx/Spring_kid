@@ -8,6 +8,7 @@ package com.kob.backend.consumer;
 import com.alibaba.fastjson2.JSONObject;
 import com.kob.backend.consumer.utils.Game;
 import com.kob.backend.consumer.utils.JwtAuthentication;
+import com.kob.backend.mapper.RecordMapper;
 import com.kob.backend.mapper.UserMapper;
 import com.kob.backend.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,15 +36,21 @@ public class WebSocketServer {
 
     private User user;
     private Session session = null;
+    private Game game = null;
 
     //websocket不是单例模式 不是传统的spring组件 与 controller注入有区别
     private static UserMapper userMapper;
 
-    private Game game = null;
+    public static RecordMapper recordMapper;
 
     @Autowired
     public void setUserMapper(UserMapper userMapper) {
         WebSocketServer.userMapper = userMapper;
+    }
+
+    @Autowired
+    public void setRecordMapper(RecordMapper recordMapper) {
+        WebSocketServer.recordMapper = recordMapper;
     }
 
 
