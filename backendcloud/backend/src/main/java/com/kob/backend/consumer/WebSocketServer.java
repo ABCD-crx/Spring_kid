@@ -13,6 +13,9 @@ import com.kob.backend.mapper.UserMapper;
 import com.kob.backend.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
@@ -32,7 +35,6 @@ public class WebSocketServer {
     // ConcurrentHashMap 线程安全的实例表
     public static final ConcurrentHashMap<Integer, WebSocketServer> users = new ConcurrentHashMap<>();
     // 创建一个匹配池
-    private static final CopyOnWriteArrayList<User> matchPool = new CopyOnWriteArrayList<>();
 
     private User user;
     private Session session = null;
@@ -43,6 +45,11 @@ public class WebSocketServer {
 
     public static RecordMapper recordMapper;
 
+    private static RestTemplate restTemplate;
+
+    private final static String addPlayerUrl = "http://127.0.0.1:3001/player/add/";
+    private final static String removePlayerUrl = "http://127.0.0.1:3001/player/remove/";
+
     @Autowired
     public void setUserMapper(UserMapper userMapper) {
         WebSocketServer.userMapper = userMapper;
@@ -51,6 +58,11 @@ public class WebSocketServer {
     @Autowired
     public void setRecordMapper(RecordMapper recordMapper) {
         WebSocketServer.recordMapper = recordMapper;
+    }
+
+    @Autowired
+    public void setRestTemplate(RestTemplate restTemplate) {
+        WebSocketServer.restTemplate = restTemplate;
     }
 
 
@@ -76,7 +88,6 @@ public class WebSocketServer {
         System.out.println("closeConnect");
         if (this.user != null) {
             users.remove(this.user.getId());
-            matchPool.remove(this.user);
         }
     }
 
@@ -104,53 +115,63 @@ public class WebSocketServer {
         }
     }
 
-    private void startMatching() {
-        System.out.println("start matching");
-        matchPool.add(this.user);
+    public static void startGame(Integer aId, Integer bId) {
+        User a = userMapper.selectById(aId);
+        User b = userMapper.selectById(bId);
 
-        while (matchPool.size() >= 2) {
-            Iterator<User> it = matchPool.iterator();
-            User a = it.next(), b = it.next();
-            matchPool.remove(a);
-            matchPool.remove(b);
-
-            Game game = new Game(13, 14, 20, a.getId(), b.getId());
-            game.createMap();
-
+        Game game = new Game(13, 14, 20, a.getId(), b.getId());
+        game.createMap();
+        if (users.get(a.getId()) != null) {
             users.get(a.getId()).game = game;
+        }
+        if (users.get(b.getId()) != null) {
             users.get(b.getId()).game = game;
+        }
 
-            game.start();   //创建线程
+        game.start();   //创建线程
 
-            JSONObject respGame = new JSONObject();
-            respGame.put("a_id", game.getPlayerA().getId());
-            respGame.put("a_sx", game.getPlayerA().getSx());
-            respGame.put("a_sy", game.getPlayerA().getSy());
-            respGame.put("b_id", game.getPlayerB().getId());
-            respGame.put("b_sx", game.getPlayerB().getSx());
-            respGame.put("b_sy", game.getPlayerB().getSy());
-            respGame.put("map", game.getG());
+        JSONObject respGame = new JSONObject();
+        respGame.put("a_id", game.getPlayerA().getId());
+        respGame.put("a_sx", game.getPlayerA().getSx());
+        respGame.put("a_sy", game.getPlayerA().getSy());
+        respGame.put("b_id", game.getPlayerB().getId());
+        respGame.put("b_sx", game.getPlayerB().getSx());
+        respGame.put("b_sy", game.getPlayerB().getSy());
+        respGame.put("map", game.getG());
 
 
-            JSONObject respA = new JSONObject();
-            respA.put("event", "success-matching");
-            respA.put("opponent_username", b.getUsername());
-            respA.put("opponent_photo", b.getPhoto());
-            respA.put("game", respGame);
+        JSONObject respA = new JSONObject();
+        respA.put("event", "success-matching");
+        respA.put("opponent_username", b.getUsername());
+        respA.put("opponent_photo", b.getPhoto());
+        respA.put("game", respGame);
+        if (users.get(a.getId()) != null)
             users.get(a.getId()).sendMessage(respA.toJSONString());
 
-            JSONObject respB = new JSONObject();
-            respB.put("event", "success-matching");
-            respB.put("opponent_username", a.getUsername());
-            respB.put("opponent_photo", a.getPhoto());
-            respB.put("game", respGame);
+        JSONObject respB = new JSONObject();
+        respB.put("event", "success-matching");
+        respB.put("opponent_username", a.getUsername());
+        respB.put("opponent_photo", a.getPhoto());
+        respB.put("game", respGame);
+        if (users.get(b.getId()) != null)
             users.get(b.getId()).sendMessage(respB.toJSONString());
-        }
+    }
+
+    private void startMatching() {
+        System.out.println("start matching");
+        // 向matching system发送请求
+        MultiValueMap<String, String> data = new LinkedMultiValueMap<>();
+        data.add("user_id", this.user.getId().toString());
+        data.add("rating",this.user.getRating().toString());
+        restTemplate.postForObject(addPlayerUrl, data, String.class);
+
     }
 
     private void stopMatching() {
         System.out.println("stop matching");
-        matchPool.remove(this.user);
+        MultiValueMap<String, String> data = new LinkedMultiValueMap<>();
+        data.add("user_id", this.user.getId().toString());
+        restTemplate.postForObject(removePlayerUrl, data, String.class);
     }
 
     @OnError
