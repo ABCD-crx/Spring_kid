@@ -6,7 +6,7 @@ package com.kob.matchingsystem.service;
  */
 public interface MatchingService {
     // 在匹配池中加入一名玩家
-    String addPlayer(Integer userId, Integer rating);
+    String addPlayer(Integer userId, Integer rating, Integer botId);
     // 在匹配池中删除一名玩家
     String removePlayer(Integer userId);
 }

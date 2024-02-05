@@ -16,6 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 public class Player {
     private Integer id;
+    private Integer botId;      // bot_id = -1 表示御驾亲征 否则表示Ai
+    private String botCode;
     private Integer sx;
     private Integer sy;
     private List<Integer> steps;     //记录每一回合的方向
