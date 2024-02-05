@@ -168,7 +168,14 @@ export default {
         const botadd = reactive({
             title: "",
             description: "",
-            content: "",
+            content: "package com.kob.botrunningsystem.utils;\n" +
+                    "\n" +
+                    "public class Bot implements com.kob.botrunningsystem.utils.BotInterface{\n" +
+                    "    @Override\n" +
+                    "    public Integer nextMove(String input) {\n" +
+                    "        return 0;\n" +
+                    "    }\n" +
+                    "}\n",
             error_message: "",
         });
 
