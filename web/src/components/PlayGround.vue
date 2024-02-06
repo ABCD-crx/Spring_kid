@@ -1,13 +1,7 @@
 <template>
     <div class="playground">
         <GameMap />
-
-        <div class="marked_user" v-if="$store.state.pk.a_id === parseInt($store.state.user.id)">
-            您在左下角(WASD或↑ ↓ ← → 控制方向)
-        </div>
-        <div class="marked_user" v-if="$store.state.pk.b_id === parseInt($store.state.user.id)">
-            您在右上角(WASD或↑ ↓ ← → 控制方向)
-        </div>
+        <slot></slot>
     </div>
 </template>
 
