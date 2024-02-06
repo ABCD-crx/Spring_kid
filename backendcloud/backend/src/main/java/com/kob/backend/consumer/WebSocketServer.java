@@ -41,7 +41,7 @@ public class WebSocketServer {
     public Game game = null;
 
     //websocket不是单例模式 不是传统的spring组件 与 controller注入有区别
-    private static UserMapper userMapper;
+    public static UserMapper userMapper;
     public static RecordMapper recordMapper;
     public static BotMapper botMapper;
 
