@@ -145,7 +145,11 @@ export default {
                         a_steps: record.record.asteps,
                         b_steps: record.record.bsteps,
                     });
-                    store.commit("updateRecordLoser", record.record.loser)
+                    store.commit("updateUsername", {
+                        a_username: record.a_username,
+                        b_username: record.b_username,
+                    });
+                    store.commit("updateRecordLoser", record.record.loser);
                     router.push({
                         name: "record_content",
                         params: {

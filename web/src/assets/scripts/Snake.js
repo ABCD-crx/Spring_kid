@@ -25,7 +25,7 @@ export class Sanke extends GameObejct {
         this.dc = [0, 1, 0, -1];    // 4个方向列的偏移量
 
         this.step = 0;      // 表示回合数
-        this.eps = 1e-2;    //允许的误差
+        this.eps = 5e-2;    //允许的误差
 
         
         // 左下蛇眼睛初始朝上, 右上角蛇朝下

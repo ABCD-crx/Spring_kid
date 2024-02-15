@@ -157,6 +157,15 @@ export default {
     },
 
     setup() {
+        const content_default = "package com.kob.botrunningsystem.utils;\n" +
+                    "\n" +
+                    "public class Bot implements com.kob.botrunningsystem.utils.BotInterface{\n" +
+                    "    @Override\n" +
+                    "    public Integer nextMove(String input) {\n" +
+                    "        return 0;\n" +
+                    "    }\n" +
+                    "}\n";
+
         ace.config.set(
             "basePath", 
             "https://cdn.jsdelivr.net/npm/ace-builds@" + require('ace-builds').version + "/src-noconflict/")
@@ -168,14 +177,7 @@ export default {
         const botadd = reactive({
             title: "",
             description: "",
-            content: "package com.kob.botrunningsystem.utils;\n" +
-                    "\n" +
-                    "public class Bot implements com.kob.botrunningsystem.utils.BotInterface{\n" +
-                    "    @Override\n" +
-                    "    public Integer nextMove(String input) {\n" +
-                    "        return 0;\n" +
-                    "    }\n" +
-                    "}\n",
+            content: content_default,
             error_message: "",
         });
 
@@ -212,7 +214,7 @@ export default {
                     if(resp.error_message === "success") {
                         botadd.title = "",
                         botadd.description = "",
-                        botadd.content = "",
+                        botadd.content = content_default,
                         Modal.getInstance("#add-bot-btn").hide();
                         refresh_bots();
                     } else {

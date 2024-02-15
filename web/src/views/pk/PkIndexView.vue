@@ -93,4 +93,12 @@ export default {
 </script>
 
 <style scoped>
+div.marked_user {
+    text-align: center;
+    color:aliceblue;
+    font-weight: bold;
+    font-size: 25px;
+    padding-top: 5vh;
+    
+}
 </style>
