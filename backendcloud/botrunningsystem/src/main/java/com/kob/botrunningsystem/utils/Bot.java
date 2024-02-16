@@ -87,8 +87,9 @@ public class Bot implements java.util.function.Supplier<Integer> {
             Scanner sc = new Scanner(file);
             return nextMove(sc.next());
         } catch (FileNotFoundException e) {
-            throw new RuntimeException();
+            e.printStackTrace();
         }
+        return null;
     }
 }
 
