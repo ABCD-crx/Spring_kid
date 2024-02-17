@@ -3,8 +3,8 @@
         <table class="table table-striped table-hover" style="text-align: center;">
             <thead>
                 <tr>
-                    <th>A</th>
-                    <th>B</th>
+                    <th>蓝方</th>
+                    <th>红方</th>
                     <th>对战结果</th>
                     <th>对战时间</th>
                     <th>操作</th>
@@ -149,6 +149,10 @@ export default {
                         a_username: record.a_username,
                         b_username: record.b_username,
                     });
+                    store.commit("updatePhoto", {
+                        a_photo: record.a_photo,
+                        b_photo: record.b_photo,
+                    })
                     store.commit("updateRecordLoser", record.record.loser);
                     router.push({
                         name: "record_content",

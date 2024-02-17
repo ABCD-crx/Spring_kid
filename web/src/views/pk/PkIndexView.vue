@@ -1,10 +1,10 @@
 <template>
     <PlayGround v-if="$store.state.pk.status === 'playing' ">
         <div class="marked_user" v-if="$store.state.pk.a_id === parseInt($store.state.user.id)">
-            您在左下角(WASD或↑ ↓ ← → 控制方向)
+            您是蓝方(WASD或↑ ↓ ← → 控制方向)
         </div>
         <div class="marked_user" v-if="$store.state.pk.b_id === parseInt($store.state.user.id)">
-            您在右上角(WASD或↑ ↓ ← → 控制方向)
+            您是红方(WASD或↑ ↓ ← → 控制方向)
         </div>
     </PlayGround>
     <MatchGround v-if="$store.state.pk.status === 'matching' "/>
@@ -97,7 +97,7 @@ div.marked_user {
     text-align: center;
     color:aliceblue;
     font-weight: bold;
-    font-size: 25px;
+    font-size: 30px;
     padding-top: 5vh;
     
 }

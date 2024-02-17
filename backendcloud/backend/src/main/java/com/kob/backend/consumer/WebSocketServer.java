@@ -129,6 +129,11 @@ public class WebSocketServer {
         Bot botA = botMapper.selectById(aBotId);
         Bot botB = botMapper.selectById(bBotId);
 
+//        // 如果 a b 中有一个为 Ai 14 将其加入users
+//        if (aId == 14 || bId == 14) {
+//            users.put(14, null);
+//        }
+
         Game game = new Game(
                 13,
                 14,

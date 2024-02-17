@@ -68,13 +68,25 @@ public class MatchingPool extends Thread{
             player.setWaitingTime(player.getWaitingTime() + 1);
         }
     }
+    // 如果等待匹配人数为 1 且 等待时间超过 15秒 加入AI
+//    private void checkAddAi() {
+//        if (players.size() == 1) {
+//            Player a = players.get(0);
+//            if (a.getWaitingTime() > 15) {
+//                addPlayer(14, 1500, 16);
+//            }
+//        }
+//
+//    }
 
     // 尝试匹配所有玩家
     private void matchPlayers() {
+//        checkAddAi();
+
         boolean[] used = new boolean[players.size()];
         // 按照等待时间枚举
         for (int i = 0; i < players.size(); i++) {
-            if (used[i]) continue;
+            if (used[i]) continue;  //匹配成功跳过
             for (int j = i + 1; j < players.size(); j++) {
                 if (used[j]) continue;
                 Player a = players.get(i);

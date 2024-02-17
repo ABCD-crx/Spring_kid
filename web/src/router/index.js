@@ -5,6 +5,7 @@ import RecordContentView from '../views/record/RecordContentView'
 import RanklistIndexView from '../views/ranklist/RanklistIndexView'
 import UserBotIndexView from '../views/user/bot/UserBotIndexView'
 import NotFound from '../views/error/NotFound'
+import RulesIndexView from '../views/rules/RulesIndexView'
 import UserAccountLoginView from '../views/user/account/UserAccountLoginView'
 import UserAccountRegisterView from '../views/user/account/UserAccountRegister'
 import store from '@/store/index'
@@ -48,6 +49,14 @@ const routes = [
     component: RanklistIndexView,
     meta: {
       requestAuth: true,
+    }
+  },
+  {
+    path: '/rules/',
+    name: 'rules_index',
+    component: RulesIndexView,
+    meta: {
+      requestAuth: false,
     }
   },
   {

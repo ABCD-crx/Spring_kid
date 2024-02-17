@@ -157,13 +157,7 @@ export default {
     },
 
     setup() {
-        const content_default = "package com.kob.botrunningsystem.utils;\n" +
-                    "\n" +
-                    "public class Bot implements java.util.function.Supplier<Integer>{\n"  +
-                    "    public Integer nextMove(String input) {\n" +
-                    "        return 0;\n" +
-                    "    }\n" +
-                    "}\n";
+        const content_default = "";
 
         ace.config.set(
             "basePath", 

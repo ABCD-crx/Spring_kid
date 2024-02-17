@@ -8,8 +8,6 @@ import java.util.Scanner;
 
 // 前端模块代码接口
 public class Bot implements java.util.function.Supplier<Integer> {
-
-
     static class Cell {
         public int x, y;
         public Cell(int x, int y) {
@@ -42,10 +40,6 @@ public class Bot implements java.util.function.Supplier<Integer> {
         }
         return res;
     }
-
-
-
-
 
     public Integer nextMove(String input) {
         String[] strs = input.split("#");
