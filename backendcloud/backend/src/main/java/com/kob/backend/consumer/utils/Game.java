@@ -208,8 +208,8 @@ public class Game extends Thread{   //game允许多线程 操作
         sendBotCode(playerA);
         sendBotCode(playerB);
 
-        // 5s 等待输入 超时直接判断输  20s判输
-        for (int i = 0; i < 200; i++) {
+        // 5s 等待输入 超时直接判断输  10s判输
+        for (int i = 0; i < 100; i++) {
             try {
                 Thread.sleep(100);
                 lock.lock();
@@ -353,6 +353,16 @@ public class Game extends Thread{   //game允许多线程 操作
     @Override
     public void run() {
         for (int i = 0; i < 1000; i++) {
+
+            // 第一回合要等待前端加载两秒 防止输入判断缺少
+            if (i == 0) {
+                try {
+                    sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
             if(nextStep()) {   // 是否获取两条蛇的下一步
                 judge();
                 if (status.equals("playing")) {

@@ -34,7 +34,7 @@
         </li>
       </ul>
 
-      <ul class="navbar-nav me-5" v-else-if="!$store.state.user.pulling_info">
+      <ul class="navbar-nav me-5" v-else>
         <li class="nav-item">
           <router-link class="nav-link" active-class="active" :to="{name: 'user_account_login'}" role="button">登录</router-link>
         </li>

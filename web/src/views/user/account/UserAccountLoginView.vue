@@ -11,6 +11,9 @@
                         <label for="password" class="password">密码</label>
                         <input v-model="password" type="password" class="form-control" id="password" placeholder="请输入密码">
                     </div>
+                    <div  class="login-to-register">
+                        <router-link class="" :to="{name: 'user_account_register'}">还没有账号? 点此去注册</router-link>
+                    </div>
                     <div class="error-message">{{ error_message }}</div>
                     <button type="submit" class="btn btn-primary">登录</button>
                 </form>
