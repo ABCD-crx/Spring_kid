@@ -93,7 +93,7 @@ export default {
         const pull_page = page => {
             current_page = page;
             $.ajax({
-                url: "http://127.0.0.1:3000/api/record/getlist/",
+                url: "https://chenrx.top/api/record/getlist/",
                 type: "GET",
                 data: {
                     page

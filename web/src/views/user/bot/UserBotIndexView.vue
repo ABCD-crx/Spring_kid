@@ -176,7 +176,7 @@ export default {
 
         const refresh_bots = () => {
             $.ajax({
-                url: "http://127.0.0.1:3000/api/user/bot/getlist/",
+                url: "https://chenrx.top/api/user/bot/getlist/",
                 type: "GET",
                 headers: {
                     'Authorization': "Bearer " + store.state.user.token,
@@ -193,7 +193,7 @@ export default {
         const add_bot = () => {
             botadd.error_message = "";
             $.ajax({
-                url: "http://127.0.0.1:3000/api/user/bot/add/",
+                url: "https://chenrx.top/api/user/bot/add/",
                 type: "POST",
                 headers: {
                     'Authorization': "Bearer " + store.state.user.token,
@@ -220,7 +220,7 @@ export default {
 
         const remove_bot = (bot) => {
             $.ajax({
-                url: "http://127.0.0.1:3000/api/user/bot/remove/",
+                url: "https://chenrx.top/api/user/bot/remove/",
                 type: "POST",
                 headers: {
                     'Authorization': "Bearer " + store.state.user.token,
@@ -241,7 +241,7 @@ export default {
         const update_bot = (bot) => {
             error_message.value = "";
             $.ajax({
-                url: "http://127.0.0.1:3000/api/user/bot/update/",
+                url: "https://chenrx.top/api/user/bot/update/",
                 type: "POST",
                 headers: {
                     'Authorization': "Bearer " + store.state.user.token,

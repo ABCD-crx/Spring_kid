@@ -29,7 +29,7 @@ export default {
     },
     setup() {
         const store = new useStore();
-        const socketUrl = `ws://127.0.0.1:3000/websocket/${store.state.user.token}/`;
+        const socketUrl = `wss://chenrx.top/websocket/${store.state.user.token}/`;
 
         store.commit("updateIsRecord", false);
 
